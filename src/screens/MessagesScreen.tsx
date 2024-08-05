@@ -1,7 +1,7 @@
-// screens/MessagesScreen.tsx
 import * as React from 'react';
 import { SafeAreaView, View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useUser } from '../context/UserContext';
 
 const messages = [
     { id: '1', name: 'Hayley', username: '@hayley', message: 'shared a video', time: '4:11 PM', image: 'https://placebacon.net/50/50', status: 'new' },
@@ -17,6 +17,7 @@ const messages = [
 
 const MessagesScreen: React.FC = () => {
     const navigation = useNavigation();
+    const { user } = useUser(); // Use the useUser hook
 
     const renderItem = ({ item }) => (
         <TouchableOpacity style={styles.messageContainer} onPress={() => navigation.navigate('Chat', { name: item.name, username: item.username, image: item.image })}>
@@ -40,12 +41,14 @@ const MessagesScreen: React.FC = () => {
                     <Text style={styles.headerButton}>+</Text>
                 </TouchableOpacity>
             </View>
-            <FlatList
-                data={messages}
-                renderItem={renderItem}
-                keyExtractor={item => item.id}
-                style={styles.messagesList}
-            />
+            {user && (
+                <FlatList
+                    data={messages}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.id}
+                    style={styles.messagesList}
+                />
+            )}
         </SafeAreaView>
     );
 };

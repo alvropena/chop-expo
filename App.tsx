@@ -1,40 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import HomeScreen from './src/screens/HomeScreen';
-import SearchScreen from './src/screens/SearchScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
-import MessagesScreen from './src/screens/MessagesScreen';
 import StudySessionScreen from './src/screens/StudySessionScreen';
-import MiddleScreen from './src/screens/MiddleScreen';
-import ChatScreen from './src/screens/ChatScreen';
 import CustomBottomSheet from './src/components/CustomBottomSheet';
-import { View, StyleSheet } from 'react-native';
+import ChatScreen from './src/screens/ChatScreen';
+import MessagesScreen from './src/screens/MessagesScreen';
+import AuthenticationScreen from './src/screens/AuthenticateScreen';
+import OnboardingScreen from './src/screens/OnboardingScreen';
+import LoadingScreen from './src/screens/LoadingScreen';
+import { View } from 'react-native';
+import { UserProvider } from './src/context/UserContext';
+import { AuthProvider } from './src/context/AuthContext';
 
 const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
-const SearchStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
 const MessagesStack = createStackNavigator();
-const MiddleStack = createStackNavigator();
+const AuthStack = createStackNavigator();
 
 function HomeStackScreen() {
   return (
     <HomeStack.Navigator screenOptions={{ headerShown: false }}>
       <HomeStack.Screen name="HomeMain" component={HomeScreen} />
       <HomeStack.Screen name="StudySession" component={StudySessionScreen} />
+      <HomeStack.Screen name="Messages" component={MessagesStackScreen} />
     </HomeStack.Navigator>
-  );
-}
-
-function SearchStackScreen() {
-  return (
-    <SearchStack.Navigator screenOptions={{ headerShown: false }}>
-      <SearchStack.Screen name="SearchMain" component={SearchScreen} />
-    </SearchStack.Navigator>
   );
 }
 
@@ -55,11 +50,13 @@ function MessagesStackScreen() {
   );
 }
 
-function MiddleStackScreen() {
+function AuthStackScreen() {
   return (
-    <MiddleStack.Navigator screenOptions={{ headerShown: false }}>
-      <MiddleStack.Screen name="MiddleMain" component={MiddleScreen} />
-    </MiddleStack.Navigator>
+    <AuthStack.Navigator screenOptions={{ headerShown: false }}>
+      <AuthStack.Screen name="Onboarding" component={OnboardingScreen} />
+      <AuthStack.Screen name="Authentication" component={AuthenticationScreen} />
+      <AuthStack.Screen name="Loading" component={LoadingScreen} />
+    </AuthStack.Navigator>
   );
 }
 
@@ -72,13 +69,9 @@ function MyTabs() {
           let iconStyle = {};
 
           if (route.name === 'Home') {
-            iconName = focused ? 'home' : 'home';
-          } else if (route.name === 'Search') {
-            iconName = focused ? 'search1' : 'search1';
-          } else if (route.name === 'Messages') {
-            iconName = focused ? 'message1' : 'message1';
+            iconName = 'home';
           } else if (route.name === 'Profile') {
-            iconName = focused ? 'user' : 'user';
+            iconName = 'user';
           } else if (route.name === 'Middle') {
             iconName = 'plus';
             iconStyle = {
@@ -108,26 +101,42 @@ function MyTabs() {
       })}
     >
       <Tab.Screen name="Home" component={HomeStackScreen} />
-      <Tab.Screen name="Search" component={SearchStackScreen} />
       <Tab.Screen
         name="Middle"
-        component={MiddleStackScreen}
+        component={HomeStackScreen}
+        listeners={({ navigation }) => ({
+          tabPress: e => {
+            e.preventDefault();
+            navigation.navigate('CustomBottomSheet');
+          },
+        })}
         options={{
           tabBarLabel: () => null,
         }}
       />
-      <Tab.Screen name="Messages" component={MessagesStackScreen} />
       <Tab.Screen name="Profile" component={ProfileStackScreen} />
     </Tab.Navigator>
   );
 }
 
-export default function App() {
+const RootStack = createStackNavigator();
+
+function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <NavigationContainer>
-        <MyTabs />
-      </NavigationContainer>
+      <AuthProvider>
+        <UserProvider>
+          <NavigationContainer>
+            <RootStack.Navigator screenOptions={{ headerShown: false }}>
+              <RootStack.Screen name="Auth" component={AuthStackScreen} />
+              <RootStack.Screen name="Main" component={MyTabs} />
+              <RootStack.Screen name="CustomBottomSheet" component={CustomBottomSheet} options={{ presentation: 'modal' }} />
+            </RootStack.Navigator>
+          </NavigationContainer>
+        </UserProvider>
+      </AuthProvider>
     </GestureHandlerRootView>
   );
 }
+
+export default App;

@@ -1,48 +1,218 @@
-// components/CustomBottomSheet.js
-import React, { useRef } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import BottomSheet from '@gorhom/bottom-sheet';
+// screens/CreatePostScreen.tsx
+import * as React from 'react';
+import { SafeAreaView, View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import { useUser } from '../context/UserContext';
+import { useNavigation } from '@react-navigation/native';
 
-const CustomBottomSheet = ({ isVisible, onClose }) => {
-    const bottomSheetRef = useRef(null);
-
-    const snapPoints = ['25%', '50%', '100%'];
+const CustomBottomSheet: React.FC = () => {
+    const { user } = useUser(); // Use the useUser hook
+    const navigation = useNavigation(); // Get navigation object
 
     return (
-        <BottomSheet
-            ref={bottomSheetRef}
-            index={isVisible ? 0 : -1}
-            snapPoints={snapPoints}
-            onClose={onClose}
-        >
-            <View style={styles.contentContainer}>
-                <Text style={styles.contentTitle}>Bottom Sheet Content</Text>
-                <TouchableOpacity onPress={onClose} style={styles.button}>
-                    <Text style={styles.buttonText}>Close</Text>
+        <SafeAreaView style={styles.container}>
+            <View style={styles.header}>
+                <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+                    <Text style={styles.backButtonText}>←</Text>
                 </TouchableOpacity>
+                <TextInput
+                    style={styles.searchInput}
+                    placeholder="Type here"
+                    placeholderTextColor="#A9A9A9"
+                />
             </View>
-        </BottomSheet>
+            {user && (
+                <ScrollView style={styles.scrollContainer}>
+                    <View style={styles.section}>
+                        <View style={styles.sectionHeader}>
+                            <Text style={styles.sectionTitle}>Your last searches</Text>
+                            <TouchableOpacity>
+                                <Text style={styles.clearButtonText}>X</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.tagContainer}>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>📐 Math</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>📜 History</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>💻 Coding</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>🏉 Rugby</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>⚽ Soccer</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>🍲 Peruvian Food</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>✨ Astronomy</Text>
+                            </View>
+                        </ScrollView>
+                        <TouchableOpacity>
+                            <Text style={styles.viewMoreText}>Ver más ⌄</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.section}>
+                        <View style={styles.sectionHeader}>
+                            <Text style={styles.sectionTitle}>Topics you could like</Text>
+                            <TouchableOpacity>
+                                <Text style={styles.clearButtonText}>X</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.tagContainer}>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>📐 Math</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>📜 History</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>💻 Coding</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>🏉 Rugby</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>⚽ Soccer</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>🍲 Peruvian Food</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>✨ Astronomy</Text>
+                            </View>
+                        </ScrollView>
+                        <TouchableOpacity>
+                            <Text style={styles.viewMoreText}>Ver más ⌄</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.section}>
+                        <Text style={styles.sectionTitle}>Recent searches</Text>
+                        <View style={styles.recentSearch}>
+                            <Text style={styles.recentSearchText}>🕒 Erika Lewin</Text>
+                            <TouchableOpacity>
+                                <Text style={styles.clearButtonText}>X</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.recentSearch}>
+                            <Text style={styles.recentSearchText}>🕒 Singrid Herrera</Text>
+                            <TouchableOpacity>
+                                <Text style={styles.clearButtonText}>X</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.recentSearch}>
+                            <Text style={styles.recentSearchText}>🕒 Marisol Trujillo</Text>
+                            <TouchableOpacity>
+                                <Text style={styles.clearButtonText}>X</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.recentSearch}>
+                            <Text style={styles.recentSearchText}>🕒 Eduardo Echevarría</Text>
+                            <TouchableOpacity>
+                                <Text style={styles.clearButtonText}>X</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.recentSearch}>
+                            <Text style={styles.recentSearchText}>🕒 Alvaro Peña</Text>
+                            <TouchableOpacity>
+                                <Text style={styles.clearButtonText}>X</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.recentSearch}>
+                            <Text style={styles.recentSearchText}>🕒 Eugenio Derbez</Text>
+                            <TouchableOpacity>
+                                <Text style={styles.clearButtonText}>X</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <TouchableOpacity>
+                            <Text style={styles.viewMoreText}>Ver más ⌄</Text>
+                        </TouchableOpacity>
+                    </View>
+                </ScrollView>
+            )}
+        </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
-    contentContainer: {
+    container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
     },
-    contentTitle: {
-        fontSize: 24,
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 10,
+    },
+    backButton: {
+        marginRight: 10,
+    },
+    backButtonText: {
+        fontSize: 18,
+        color: '#CE82FF',
+    },
+    searchInput: {
+        flex: 1,
+        height: 40,
+        backgroundColor: '#f1f1f1',
+        borderRadius: 20,
+        paddingHorizontal: 15,
+        color: '#000',
+    },
+    scrollContainer: {
+        flex: 1,
+    },
+    section: {
+        margin: 20,
+    },
+    sectionHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    sectionTitle: {
+        fontSize: 18,
         fontWeight: 'bold',
     },
-    button: {
-        marginTop: 20,
-        padding: 10,
-        backgroundColor: '#CE82FF',
-        borderRadius: 5,
+    clearButtonText: {
+        fontSize: 16,
+        color: '#CE82FF',
     },
-    buttonText: {
-        color: 'white',
+    tagContainer: {
+        flexDirection: 'row',
+        marginTop: 10,
+    },
+    tag: {
+        backgroundColor: 'rgba(206, 130, 255, 0.13)',
+        borderColor: '#CE82FF',
+        borderWidth: 1,
+        borderRadius: 20,
+        paddingHorizontal: 15,
+        paddingVertical: 5,
+        marginRight: 10,
+    },
+    tagText: {
+        color: '#CE82FF',
+        fontWeight: 'bold',
+    },
+    viewMoreText: {
+        marginTop: 10,
+        fontSize: 16,
+        color: '#CE82FF',
+        alignSelf: 'center',
+    },
+    recentSearch: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 10,
+    },
+    recentSearchText: {
+        fontSize: 16,
+        color: '#555',
     },
 });
 

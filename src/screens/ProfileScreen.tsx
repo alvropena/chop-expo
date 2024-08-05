@@ -1,20 +1,35 @@
-// screens/ProfileScreen.tsx
 import * as React from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useUser } from '../context/UserContext';
 
 const ProfileScreen: React.FC = () => {
     const navigation = useNavigation();
+    const { user } = useUser();
+
+    if (!user) {
+        return (
+            <SafeAreaView style={styles.container}>
+                <Text style={styles.errorText}>No user data available</Text>
+            </SafeAreaView>
+        );
+    }
 
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.profileSection}>
                 <Image
-                    source={{ uri: 'https://placekitten.com/200/200' }}
+                    source={{ uri: user.profile_picture }}
                     style={styles.profileImage}
                 />
-                <Text style={styles.profileName}>Alonso Rojas</Text>
-                <Text style={styles.profileHandle}>@alonso24rojas</Text>
+                <Text style={styles.profileName}>{user.name}</Text>
+                <Text style={styles.profileHandle}>@{user.username}</Text>
+                <Text style={styles.profileBio}>{user.bio}</Text>
+                <Text style={styles.profileDetail}>Location: {user.location}</Text>
+                <Text style={styles.profileDetail}>Birthday: {user.birthday}</Text>
+                <Text style={styles.profileDetail}>Email: {user.email}</Text>
+                <Text style={styles.profileDetail}>Phone: {user.phone_number}</Text>
+                <Text style={styles.profileDetail}>Gender: {user.gender}</Text>
                 <View style={styles.profileStats}>
                     <TouchableOpacity style={styles.stat} onPress={() => navigation.navigate('Followers')}>
                         <Text style={styles.statNumber}>360</Text>
@@ -67,6 +82,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
+    errorText: {
+        textAlign: 'center',
+        marginTop: 20,
+        fontSize: 18,
+        color: 'red',
+    },
     profileSection: {
         alignItems: 'center',
         margin: 20,
@@ -83,6 +104,16 @@ const styles = StyleSheet.create({
     },
     profileHandle: {
         fontSize: 16,
+        color: 'gray',
+    },
+    profileBio: {
+        fontSize: 14,
+        color: 'gray',
+        textAlign: 'center',
+        marginVertical: 10,
+    },
+    profileDetail: {
+        fontSize: 14,
         color: 'gray',
     },
     profileButton: {

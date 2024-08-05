@@ -1,10 +1,9 @@
-import { useState, useCallback } from 'react';
-import * as React from 'react';
-import { SafeAreaView, View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, FlatList, RefreshControl } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import React, { useState, useCallback } from 'react';
+import { SafeAreaView, View, Text, StyleSheet, TouchableOpacity, Dimensions, FlatList, RefreshControl, Alert } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useUser } from '../context/UserContext';
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
 
@@ -58,6 +57,7 @@ const HomeScreen: React.FC = () => {
     const [selectedTab, setSelectedTab] = useState('For You');
     const [selectedOptions, setSelectedOptions] = useState<{ [key: string]: number | null }>({});
     const [refreshing, setRefreshing] = useState(false);
+    const { user, setUser } = useUser(); // Use the useUser hook
 
     const navigation = useNavigation<HomeScreenNavigationProp>(); // Specify the type here
 
@@ -76,6 +76,19 @@ const HomeScreen: React.FC = () => {
         }, 2000);
     }, []);
 
+    const showOptions = () => {
+        Alert.alert(
+            "Options",
+            "Choose an action",
+            [
+                { text: "Option 1", onPress: () => console.log("Option 1 Pressed") },
+                { text: "Option 2", onPress: () => console.log("Option 2 Pressed") },
+                { text: "Cancel", style: "cancel" }
+            ],
+            { cancelable: true }
+        );
+    };
+
     const renderItem = ({ item }) => (
         <View style={styles.card}>
             <View style={styles.cardHeader}>
@@ -90,7 +103,7 @@ const HomeScreen: React.FC = () => {
                         <Text style={styles.tagText}>💻 Coding</Text>
                     </View>
                 </View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={showOptions}>
                     <Text style={styles.moreOptions}>⋮</Text>
                 </TouchableOpacity>
             </View>
@@ -117,7 +130,11 @@ const HomeScreen: React.FC = () => {
                 ))}
             </View>
             <View style={styles.cardFooter}>
-                {item.showAuthor && <Text style={styles.studiedBy}>✨ Studied by {item.author}</Text>}
+                {item.showAuthor && (
+                    <View style={styles.studiedByContainer}>
+                        <Text style={styles.studiedBy}>✨ Studied by <Text style={styles.authorName}>{item.author}</Text></Text>
+                    </View>
+                )}
                 <View style={styles.iconContainer}>
                     <TouchableOpacity style={styles.iconButton}>
                         <AntDesign name="hearto" size={24} color="#CE82FF" />
@@ -137,7 +154,7 @@ const HomeScreen: React.FC = () => {
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
                 <TouchableOpacity>
-                    <Ionicons name="volume-high-outline" size={24} color="#000" />
+                    <AntDesign name="sound" size={24} color="#000" />
                 </TouchableOpacity>
                 <View style={styles.headerTabs}>
                     <TouchableOpacity
@@ -153,8 +170,8 @@ const HomeScreen: React.FC = () => {
                         <Text style={[styles.tabText, selectedTab === 'Following' && styles.activeTabText]}>Following</Text>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={() => navigation.navigate("Search")}>
-                    <Ionicons name="search-outline" size={24} color="#000" />
+                <TouchableOpacity onPress={() => navigation.navigate("Messages")}>
+                    <AntDesign name="message1" size={24} color="#000" />
                 </TouchableOpacity>
             </View>
             <FlatList
@@ -244,9 +261,20 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         marginRight: 10,
     },
+    studiedByContainer: {
+        backgroundColor: 'rgba(206, 130, 255, 0.13)',
+        borderColor: '#CE82FF',
+        borderWidth: 1,
+        borderRadius: 20,
+        paddingHorizontal: 15,
+        paddingVertical: 5,
+    },
     studiedBy: {
         fontSize: 14,
-        color: '#555',
+        color: '#CE82FF',
+    },
+    authorName: {
+        fontWeight: 'bold',
     },
     moreOptions: {
         fontSize: 24,

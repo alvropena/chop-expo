@@ -1,8 +1,10 @@
-// screens/SearchScreen.tsx
 import * as React from 'react';
 import { SafeAreaView, View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import { useUser } from '../context/UserContext';
 
 const SearchScreen: React.FC = () => {
+    const { user } = useUser(); // Use the useUser hook
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -15,118 +17,120 @@ const SearchScreen: React.FC = () => {
                     placeholderTextColor="#A9A9A9"
                 />
             </View>
-            <ScrollView style={styles.scrollContainer}>
-                <View style={styles.section}>
-                    <View style={styles.sectionHeader}>
-                        <Text style={styles.sectionTitle}>Your last searches</Text>
+            {user && (
+                <ScrollView style={styles.scrollContainer}>
+                    <View style={styles.section}>
+                        <View style={styles.sectionHeader}>
+                            <Text style={styles.sectionTitle}>Your last searches</Text>
+                            <TouchableOpacity>
+                                <Text style={styles.clearButtonText}>X</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.tagContainer}>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>📐 Math</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>📜 History</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>💻 Coding</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>🏉 Rugby</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>⚽ Soccer</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>🍲 Peruvian Food</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>✨ Astronomy</Text>
+                            </View>
+                        </ScrollView>
                         <TouchableOpacity>
-                            <Text style={styles.clearButtonText}>X</Text>
+                            <Text style={styles.viewMoreText}>Ver más ⌄</Text>
                         </TouchableOpacity>
                     </View>
-                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.tagContainer}>
-                        <View style={styles.tag}>
-                            <Text style={styles.tagText}>📐 Math</Text>
+                    <View style={styles.section}>
+                        <View style={styles.sectionHeader}>
+                            <Text style={styles.sectionTitle}>Topics you could like</Text>
+                            <TouchableOpacity>
+                                <Text style={styles.clearButtonText}>X</Text>
+                            </TouchableOpacity>
                         </View>
-                        <View style={styles.tag}>
-                            <Text style={styles.tagText}>📜 History</Text>
-                        </View>
-                        <View style={styles.tag}>
-                            <Text style={styles.tagText}>💻 Coding</Text>
-                        </View>
-                        <View style={styles.tag}>
-                            <Text style={styles.tagText}>🏉 Rugby</Text>
-                        </View>
-                        <View style={styles.tag}>
-                            <Text style={styles.tagText}>⚽ Soccer</Text>
-                        </View>
-                        <View style={styles.tag}>
-                            <Text style={styles.tagText}>🍲 Peruvian Food</Text>
-                        </View>
-                        <View style={styles.tag}>
-                            <Text style={styles.tagText}>✨ Astronomy</Text>
-                        </View>
-                    </ScrollView>
-                    <TouchableOpacity>
-                        <Text style={styles.viewMoreText}>Ver más ⌄</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.section}>
-                    <View style={styles.sectionHeader}>
-                        <Text style={styles.sectionTitle}>Topics you could like</Text>
+                        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.tagContainer}>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>📐 Math</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>📜 History</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>💻 Coding</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>🏉 Rugby</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>⚽ Soccer</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>🍲 Peruvian Food</Text>
+                            </View>
+                            <View style={styles.tag}>
+                                <Text style={styles.tagText}>✨ Astronomy</Text>
+                            </View>
+                        </ScrollView>
                         <TouchableOpacity>
-                            <Text style={styles.clearButtonText}>X</Text>
+                            <Text style={styles.viewMoreText}>Ver más ⌄</Text>
                         </TouchableOpacity>
                     </View>
-                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={styles.tagContainer}>
-                        <View style={styles.tag}>
-                            <Text style={styles.tagText}>📐 Math</Text>
+                    <View style={styles.section}>
+                        <Text style={styles.sectionTitle}>Recent searches</Text>
+                        <View style={styles.recentSearch}>
+                            <Text style={styles.recentSearchText}>🕒 Erika Lewin</Text>
+                            <TouchableOpacity>
+                                <Text style={styles.clearButtonText}>X</Text>
+                            </TouchableOpacity>
                         </View>
-                        <View style={styles.tag}>
-                            <Text style={styles.tagText}>📜 History</Text>
+                        <View style={styles.recentSearch}>
+                            <Text style={styles.recentSearchText}>🕒 Singrid Herrera</Text>
+                            <TouchableOpacity>
+                                <Text style={styles.clearButtonText}>X</Text>
+                            </TouchableOpacity>
                         </View>
-                        <View style={styles.tag}>
-                            <Text style={styles.tagText}>💻 Coding</Text>
+                        <View style={styles.recentSearch}>
+                            <Text style={styles.recentSearchText}>🕒 Marisol Trujillo</Text>
+                            <TouchableOpacity>
+                                <Text style={styles.clearButtonText}>X</Text>
+                            </TouchableOpacity>
                         </View>
-                        <View style={styles.tag}>
-                            <Text style={styles.tagText}>🏉 Rugby</Text>
+                        <View style={styles.recentSearch}>
+                            <Text style={styles.recentSearchText}>🕒 Eduardo Echevarría</Text>
+                            <TouchableOpacity>
+                                <Text style={styles.clearButtonText}>X</Text>
+                            </TouchableOpacity>
                         </View>
-                        <View style={styles.tag}>
-                            <Text style={styles.tagText}>⚽ Soccer</Text>
+                        <View style={styles.recentSearch}>
+                            <Text style={styles.recentSearchText}>🕒 Alvaro Peña</Text>
+                            <TouchableOpacity>
+                                <Text style={styles.clearButtonText}>X</Text>
+                            </TouchableOpacity>
                         </View>
-                        <View style={styles.tag}>
-                            <Text style={styles.tagText}>🍲 Peruvian Food</Text>
+                        <View style={styles.recentSearch}>
+                            <Text style={styles.recentSearchText}>🕒 Eugenio Derbez</Text>
+                            <TouchableOpacity>
+                                <Text style={styles.clearButtonText}>X</Text>
+                            </TouchableOpacity>
                         </View>
-                        <View style={styles.tag}>
-                            <Text style={styles.tagText}>✨ Astronomy</Text>
-                        </View>
-                    </ScrollView>
-                    <TouchableOpacity>
-                        <Text style={styles.viewMoreText}>Ver más ⌄</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>Recent searches</Text>
-                    <View style={styles.recentSearch}>
-                        <Text style={styles.recentSearchText}>🕒 Erika Lewin</Text>
                         <TouchableOpacity>
-                            <Text style={styles.clearButtonText}>X</Text>
+                            <Text style={styles.viewMoreText}>Ver más ⌄</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.recentSearch}>
-                        <Text style={styles.recentSearchText}>🕒 Singrid Herrera</Text>
-                        <TouchableOpacity>
-                            <Text style={styles.clearButtonText}>X</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.recentSearch}>
-                        <Text style={styles.recentSearchText}>🕒 Marisol Trujillo</Text>
-                        <TouchableOpacity>
-                            <Text style={styles.clearButtonText}>X</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.recentSearch}>
-                        <Text style={styles.recentSearchText}>🕒 Eduardo Echevarría</Text>
-                        <TouchableOpacity>
-                            <Text style={styles.clearButtonText}>X</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.recentSearch}>
-                        <Text style={styles.recentSearchText}>🕒 Alvaro Peña</Text>
-                        <TouchableOpacity>
-                            <Text style={styles.clearButtonText}>X</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.recentSearch}>
-                        <Text style={styles.recentSearchText}>🕒 Eugenio Derbez</Text>
-                        <TouchableOpacity>
-                            <Text style={styles.clearButtonText}>X</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <TouchableOpacity>
-                        <Text style={styles.viewMoreText}>Ver más ⌄</Text>
-                    </TouchableOpacity>
-                </View>
-            </ScrollView>
+                </ScrollView>
+            )}
         </SafeAreaView>
     );
 };
@@ -134,7 +138,6 @@ const SearchScreen: React.FC = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-
     },
     header: {
         flexDirection: 'row',
