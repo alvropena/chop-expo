@@ -15,7 +15,6 @@ const ProfileScreen: React.FC = () => {
                 />
                 <Text style={styles.profileName}>Alonso Rojas</Text>
                 <Text style={styles.profileHandle}>@alonso24rojas</Text>
-
                 <View style={styles.profileStats}>
                     <TouchableOpacity style={styles.stat} onPress={() => navigation.navigate('Followers')}>
                         <Text style={styles.statNumber}>360</Text>
@@ -67,7 +66,6 @@ const ProfileScreen: React.FC = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
     },
     profileSection: {
         alignItems: 'center',
@@ -147,11 +145,12 @@ const styles = StyleSheet.create({
     },
     followButton: {
         backgroundColor: '#CE82FF',
-        padding: 10,
+        padding: 15,
         borderRadius: 5,
         alignItems: 'center',
     },
     followButtonText: {
+        fontSize: 18,
         color: 'white',
         fontWeight: 'bold',
     },

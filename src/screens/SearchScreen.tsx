@@ -134,14 +134,12 @@ const SearchScreen: React.FC = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+
     },
     header: {
         flexDirection: 'row',
         alignItems: 'center',
         padding: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ccc',
     },
     backButton: {
         marginRight: 10,
