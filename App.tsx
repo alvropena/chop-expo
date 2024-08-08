@@ -128,9 +128,13 @@ function App() {
         <UserProvider>
           <NavigationContainer>
             <RootStack.Navigator screenOptions={{ headerShown: false }}>
-              <RootStack.Screen name="Auth" component={AuthStackScreen} />
               <RootStack.Screen name="Main" component={MyTabs} />
-              <RootStack.Screen name="CustomBottomSheet" component={CustomBottomSheet} options={{ presentation: 'modal' }} />
+              <RootStack.Screen name="Auth" component={AuthStackScreen} />
+              <RootStack.Screen
+                name="CustomBottomSheet"
+                component={CustomBottomSheet}
+                options={{ presentation: "modal" }}
+              />
             </RootStack.Navigator>
           </NavigationContainer>
         </UserProvider>
