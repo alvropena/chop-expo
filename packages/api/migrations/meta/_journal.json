@@ -1,0 +1,34 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1692862097376,
+      "tag": "0000_chemical_spitfire",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1694824497981,
+      "tag": "0001_worried_gamma_corps",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1699066590780,
+      "tag": "0002_faithful_gravity",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1699079033736,
+      "tag": "0003_hot_ultragirl",
+      "breakpoints": true
+    }
+  ]
+}

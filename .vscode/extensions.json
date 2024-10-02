@@ -1,0 +1,17 @@
+{
+  "recommendations": [
+    "albbus.t4-app-tools",
+    "unifiedjs.vscode-mdx",
+    "robbowen.synthwave-vscode",
+    "wayou.vscode-todo-highlight",
+    "steoates.autoimport",
+    "irongeek.vscode-env",
+    "davidanson.vscode-markdownlint",
+    "waderyan.gitblame",
+    "peterschmalfeldt.explorer-exclude",
+    "wilsonsio.color-vision",
+    "tamasfe.even-better-toml",
+    "expo.vscode-expo-tools",
+    "biomejs.biome"
+  ]
+}
